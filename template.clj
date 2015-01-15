@@ -1,6 +1,8 @@
 #!/usr/bin/env lein-exec
 
 ; Problem ###
-; Text
+;
+; TEXT
 
-()
+(println)
+
