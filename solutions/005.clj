@@ -23,11 +23,15 @@
   (let [divisible-by? (fn [n possible-divisor]
                         (zero? (mod n possible-divisor)))
         is-prime? (fn [n]
-                    (cond (= 1 n) false
-                          (= 2 n) true
-                          (even? n) false
-                          :else (not-any? #(divisible-by? n %1)
-                                          (filter odd? (range 2 (/ n 4))))))
+                      (cond (= 1 n) false
+                            (= 2 n) true
+                            (even? n) false
+                            :else
+                            (let [ceil #(int (+ 1 %1))
+                                  ; need to add 1 since (range a b) is [a..b)
+                                  rng-upper-bound #(inc (ceil (/ %1 4)))]
+                              (not-any? #(divisible-by? n %1)
+                                        (filter odd? (range 2 (rng-upper-bound n)))))))
         all-primes (filter is-prime? (range))
         prime-factors (fn [n]
                         ; JPR TODO: alternate non-loop solution
