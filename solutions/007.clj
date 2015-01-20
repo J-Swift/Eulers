@@ -16,7 +16,7 @@
                             :else 
                             (let [ceil #(int (+ 1 %1))
                                   ; need to add 1 since (range a b) is [a..b)
-                                  rng-upper-bound #(inc (ceil (/ %1 4)))]
+                                  rng-upper-bound #(inc (ceil (Math/sqrt %1)))]
                               (not-any? #(divisible-by? n %1)
                                         (filter odd? (range 2 (rng-upper-bound n)))))))
         all-primes (filter is-prime? (range))]
